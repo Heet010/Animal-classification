@@ -10,10 +10,8 @@ This project is a binary classification task to distinguish between cats and dog
 3. [Model Design](#model-design)  
 4. [Training and Evaluation](#training-and-evaluation)  
 5. [Model Testing & Prediction](#model-testing--prediction)  
-6. [Results and Interpretation](#results-and-interpretation)  
-7. [Challenges and Solutions](#challenges-and-solutions)  
-8. [Setup and Execution](#setup-and-execution)  
-9. [References](#references)  
+6. [Results](#resuls)  
+7. [Challenges and Solutions](#challenges-and-solutions)   
 
 ---
 
@@ -48,24 +46,35 @@ The preprocessing pipeline is implemented using a PyTorch `DataLoader`, ensuring
 This project utilizes a custom version of the ResNet architecture. Key modifications include:  
 - **Input Layer**: Adjusted to accept 1-channel grayscale images (instead of 3) of size 64x64 .  
 - **Output Layer**: Modified to output 2 classes (Cat and Dog).  
-- **Intermediate Layers**: Maintains the overall ResNet structure but added maxpooling layer after first convolution layer to reduce training time and changed filter size to better suit the particular layers.   
+- **Intermediate Layers**: Maintains the overall ResNet structure but added maxpooling layer after first convolution layer to reduce training time and changed kernel size to better suit the particular layer (menrioned with the help of comments in model).   
 
 ---
 
 ## Training and Evaluation  
 - **Loss Function**: CrossEntropyLoss.  
 - **Optimizer**: Adam optimizer with learning rate 0.0001.  
-- **Metrics**: Accuracy and F1-Score.  
-- **Model Checkpointing**: Automatically saves the best model based on validation accuracy.  
+- **Metrics**: Max validation accuracy = 99.7 % and max F1-Score = 0.9953 has been achieved during 17th and 20th epoch of training.  
+- **Model Checkpointing**: Automatically saves the best model based on validation accuracy please check check point folder.  
 
 ### Visualization:  
 - Different curves are ploted for visulization like validation loss, training loss, validation accuracy curve and validation f1 score.  
 
 ---
 
-## Model Testing & Prediction  
-A dedicated prediction script is provided that:  
+## Model Testing & Prediction 
+
+A dedicated prediction script (test.py) is provided that:  
 - Accepts an input image and a model checkpoint path.  
-- Outputs the predicted class ("Cat" or "Dog") and a confidence score.  
+- Outputs the predicted class ("Cat" or "Dog") and a confidence score. 
+
+## Results
+Model has been tested on testset an following are the best results which has been achieved:
+- Test Accuracy: 0.9968, 
+- Test F1 Score: 0.9952,
+- Precision: 0.9925, 
+- Recall: 0.9980 
+
+## Challenges and solution 
+Mostly challenges occured in model design and as a solution necessary changes has been done in model like adjust the color channel, output class and kernel size dring processing the intermediate layers (menrioned with the help of comments in model).
   
 
