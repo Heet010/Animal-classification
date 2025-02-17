@@ -75,6 +75,6 @@ Model has been tested on testset an following are the best results which has bee
 - Recall: 0.9980 
 
 ## Challenges and solution 
-Mostly challenges occured in model design and as a solution necessary changes has been done in model like adjust the color channel, output class and kernel size dring processing the intermediate layers (menrioned with the help of comments in model).
+Mostly challenges occured in model design and as a solution necessary changes has been done in model like adjust the color channel, output class and kernel size dring processing the intermediate layers (mentioned with the help of comments in model).
   
 
