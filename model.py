@@ -42,9 +42,15 @@ class ResNet18(nn.Module):
     def __init__(self, num_classes=2): # number of classes is 2 taken as it is binary classification (cat vs dog)
         super(ResNet18, self).__init__()
         self.in_channels = 64
-        self.conv1 = nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3, bias=False) # input channel is 1 taken instead of 3 as input image is in grayscale
+        
+        # input channel is 1 taken instead of 3 as input image is in grayscale
+        # Changed the kernel size from 3 to 7 in the first Conv layer to look at a bigger part of the image at once. 
+        # As image is resized to 64x64 from very high dimentions, This will helps the model catch more patterns and details right from the start. 
+        self.conv1 = nn.Conv2d(1, 64, kernel_size=7, stride=2, padding=3, bias=False) 
         self.bn1 = nn.BatchNorm2d(64)
-        self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1) # Added Maxpool layer this will help to reduce computational cost
+        
+        # Added Maxpool layer this will help to reduce computational cost and it makes the feature maps even smaller while keeping the most important features. 
+        self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1) 
 
         self.layer1 = self._make_layer(64, 2, stride=1)
         self.layer2 = self._make_layer(128, 2, stride=2)
