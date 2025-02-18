@@ -10,6 +10,10 @@ import torch.nn.functional as F
 import torch.optim as optim
 from sklearn.metrics import f1_score, accuracy_score
 
+# Here is basicblock for ResNet18 which is also known as residual network.
+# The main purpose of a residual block is ease the training of deep neural networks 
+# by allowing gradients to flow through the network more effectively, 
+# addressing the vanishing gradient problem.
 class BasicBlock(nn.Module):
     expansion = 1
 
@@ -33,6 +37,10 @@ class BasicBlock(nn.Module):
         out = self.conv2(out)
         out = self.bn2(out)
 
+        # Here is Skip Connection:
+        # Element-wise addition of input (identity) and residual (out).
+        # This improves gradient flow and prevents them from becoming too small during backpropagation, 
+        # which is a common issue in very deep networks.
         out += identity
         out = self.relu(out)
 
@@ -61,6 +69,9 @@ class ResNet18(nn.Module):
     def _make_layer(self, out_channels, blocks, stride):
         downsample = None
         if stride != 1 or self.in_channels != out_channels:
+            # Downsampling is needed if spatial dimensions or channels change, 
+            # to ensure the skip connection has matching dimensions.
+            # A 1x1 convolution adjusts channels and stride handles downsampling,
             downsample = nn.Sequential(
                 nn.Conv2d(self.in_channels, out_channels, kernel_size=1, stride=stride, bias=False),
                 nn.BatchNorm2d(out_channels),
